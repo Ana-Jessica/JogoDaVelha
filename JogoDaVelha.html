@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+    <style>
+        td {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            padding: auto;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Jogo da Velha</h1>
+    <br>
+    <Table border="1">
+        <tr>
+            <td id="c11" onclick="jogada(this.id)">&nbsp;</td>
+            <td id="c12" onclick="jogada(this.id)">&nbsp;</td>
+            <td id="c13" onclick="jogada(this.id)">&nbsp;</td>
+        </tr>
+        <tr>
+            <td id="c21" onclick="jogada(this.id)">&nbsp;</td>
+            <td id="c22" onclick="jogada(this.id)">&nbsp;</td>
+            <td id="c23" onclick="jogada(this.id)">&nbsp;</td>
+        </tr>
+        <tr>
+            <td id="c31" onclick="jogada(this.id)">&nbsp;</td>
+            <td id="c32" onclick="jogada(this.id)">&nbsp;</td>
+            <td id="c33" onclick="jogada(this.id)">&nbsp;</td>
+        </tr>
+        <script>
+            let jogador = true; // true = jogador X
+            // false = jogador O
+
+            function jogada(v_id) {
+                //verifica o elemento clicado tem um ID
+                //console.log('ID do elemento clicado:', v_id);
+                //recupera o valor da célula clicada
+                let conteudo = document.getElementById(v_id).innerHTML;
+                console.log(conteudo);
+                if (conteudo === '&nbsp;') {
+                    if (jogador) {
+                        document.getElementById(v_id).innerHTML = 'X';
+                    } else {
+                        document.getElementById(v_id).innerHTML = 'O';
+                    }
+                    jogador = !jogador;
+                    jogadas++;
+                    verificarVencedor();
+
+                }
+
+            }
+            function verificarVencedor() {
+                const celulas = [
+                    ["c11", "c12", "c13"],
+                    ["c21", "c22", "c23"],
+                    ["c31", "c32", "c33"]
+                ];
+
+                // Verifica linhas
+                for (const linha of celulas) {
+                    const [a, b, c] = linha;
+                    if (document.getElementById(a).innerHTML === "X" &&
+                        document.getElementById(b).innerHTML === "X" &&
+                        document.getElementById(c).innerHTML === "X") {
+                        alert("Jogador 1 venceu!");
+                        location.reload();
+                        return;
+                    } else if (document.getElementById(a).innerHTML === "O" &&
+                        document.getElementById(b).innerHTML === "O" &&
+                        document.getElementById(c).innerHTML === "O") {
+                        alert("Jogador 2 venceu!");
+                        location.reload();
+                        return;
+                    }
+                }
+
+                // Verifica colunas
+                for (let i = 0; i < 3; i++) {
+                    if (document.getElementById(celulas[0][i]).innerHTML === "X" &&
+                        document.getElementById(celulas[1][i]).innerHTML === "X" &&
+                        document.getElementById(celulas[2][i]).innerHTML === "X") {
+                        alert("Jogador 1 venceu!");
+                        location.reload();
+                        return;
+                    } else if (document.getElementById(celulas[0][i]).innerHTML === "O" &&
+                        document.getElementById(celulas[1][i]).innerHTML === "O" &&
+                        document.getElementById(celulas[2][i]).innerHTML === "O") {
+                        alert("Jogador 2 venceu!");
+                        location.reload();
+                        return;
+                    }
+
+                }
+
+                // Verifica diagonais
+                if ((document.getElementById("c11").innerHTML === "X" &&
+                    document.getElementById("c22").innerHTML === "X" &&
+                    document.getElementById("c33").innerHTML === "X") ||
+                    (document.getElementById("c13").innerHTML === "X" &&
+                        document.getElementById("c22").innerHTML === "X" &&
+                        document.getElementById("c31").innerHTML === "X")) {
+                    alert("Jogador X venceu!");
+                    location.reload();
+                } else if ((document.getElementById("c11").innerHTML === "O" &&
+                    document.getElementById("c22").innerHTML === "O" &&
+                    document.getElementById("c33").innerHTML === "O") ||
+                    (document.getElementById("c13").innerHTML === "O" &&
+                        document.getElementById("c22").innerHTML === "O" &&
+                        document.getElementById("c31").innerHTML === "O")) {
+                    alert("Jogador 2 venceu!");
+                    location.reload();
+                    // reiniciarJogo();
+                }
+            }
+
+
+        </script>
+</body>
+
+</html>
